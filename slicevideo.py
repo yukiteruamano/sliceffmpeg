@@ -3,20 +3,43 @@ import argparse
 import logging
 
 def parse_time(time_str):
-    """Convierte un timestamp en formato HH:MM:SS a segundos."""
+    """
+    Convierte un timestamp en formato HH:MM:SS a segundos.
+
+    Args:
+        time_str (str): El timestamp en formato HH:MM:SS.
+
+    Returns:
+        int: El tiempo en segundos.
+    """
     h, m, s = map(int, time_str.split(':'))
     return h * 3600 + m * 60 + s
 
+
 def generate_ffmpeg_command(input_video, time_init, time_final, output_video):
-    """Genera el comando ffmpeg para cortar el video."""
+    """
+    Genera el comando ffmpeg para cortar el video.
+
+    Args:
+        input_video (str): Ruta completa del archivo de video de entrada.
+        time_init (int): Tiempo de inicio en segundos.
+        time_final (int): Tiempo de finalización en segundos.
+        output_video (str): Ruta completa del archivo de video de salida.
+
+    Returns:
+        list: Lista de argumentos para el comando ffmpeg.
+    """
     return [
         'ffmpeg', '-i', input_video, '-map', '0', '-c', 'copy',
         '-ss', str(time_init), '-t', str(time_final - time_init),
         '-map_metadata', '0', output_video
     ]
 
+
 def setup_logging():
-    """Configura el logging."""
+    """
+    Configura el logging para escribir en un archivo y en la consola.
+    """
     logging.basicConfig(
         filename='cut_video.log',
         level=logging.DEBUG,
@@ -28,7 +51,11 @@ def setup_logging():
     console.setFormatter(formatter)
     logging.getLogger('').addHandler(console)
 
+
 def main():
+    """
+    Función principal que procesa el video según los timestamps en un archivo slice.txt.
+    """
     parser = argparse.ArgumentParser(description='Cortar un video según timestamps en un archivo slice.txt.')
     parser.add_argument('-i', required=True, help='Ruta completa del archivo de video de entrada.')
     parser.add_argument('-slice', required=True, help='Ruta completa del archivo slice.txt.')
@@ -74,6 +101,7 @@ def main():
             logging.error(f"Error inesperado en la línea {i + 1}: {e}")
 
     logging.info("Proceso completado.")
+
 
 if __name__ == "__main__":
     main()
