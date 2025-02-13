@@ -15,7 +15,6 @@ def parse_time(time_str):
     h, m, s = map(int, time_str.split(':'))
     return h * 3600 + m * 60 + s
 
-
 def generate_ffmpeg_command(input_video, time_init, time_final, output_video):
     """
     Genera el comando ffmpeg para cortar el video.
@@ -35,7 +34,6 @@ def generate_ffmpeg_command(input_video, time_init, time_final, output_video):
         '-map_metadata', '0', output_video
     ]
 
-
 def setup_logging():
     """
     Configura el logging para escribir en un archivo y en la consola.
@@ -50,7 +48,6 @@ def setup_logging():
     formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
     console.setFormatter(formatter)
     logging.getLogger('').addHandler(console)
-
 
 def main():
     """
@@ -101,7 +98,6 @@ def main():
             logging.error(f"Error inesperado en la línea {i + 1}: {e}")
 
     logging.info("Proceso completado.")
-
 
 if __name__ == "__main__":
     main()
