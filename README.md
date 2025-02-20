@@ -15,3 +15,7 @@
 `00:00:20 00:00:30` (Del segundo 20 al 30)
   
 Y así sucesivamente, cada línea del archivo `slice.txt` representa un intervalo de tiempo que se desea cortar del video.
+
+## Información para desarrollo
+
+El script está desarrollado usando python, ruff y uv, instala las herramientas y disfruta. 
